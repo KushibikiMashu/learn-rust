@@ -37,12 +37,12 @@ fn main() {
 
     let one = t.2;
 
-    let array = [1,2,3,4,5];
+    let array = [1, 2, 3, 4, 5];
 
     let months = ["January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"];
 
     let first = array[0];
 
-    let second= array[1];
+    let second = array[1];
 }
