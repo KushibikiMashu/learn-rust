@@ -1,1 +1,1 @@
-# learn-rust
+# rust-tutorial
