@@ -7,10 +7,11 @@ struct User {
 }
 
 // タプル構造体
-struct Color(i32,i32,i32);
-struct Point(i32,i32,i32);
+struct Color(i32, i32, i32);
 
-fn main () {
+struct Point(i32, i32, i32);
+
+fn main() {
     let mut user1 = User {
         username: String::from("someone@example.com"),
         email: String::from("someusername123"),
@@ -36,8 +37,8 @@ fn main () {
 
     let user2 = build_user(String::from("a"), String::from("b"));
 
-    let black = Color(0,0,0);
-    let origin = Point(0,0,0);
+    let black = Color(0, 0, 0);
+    let origin = Point(0, 0, 0);
 }
 
 // 構造体のインスタンスは全データを所有する必要があるため
