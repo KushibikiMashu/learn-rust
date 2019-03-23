@@ -1,24 +1,35 @@
-use std::env;
-use std::fs::File;
-use std::io::prelude::*;
+extern crate minigrep;
 
+use std::env;
+use std::process;
+
+use minigrep::Config;
+
+// プログラムをmain.rsとlib.rsに分け、ロジックをlib.rsに移動する。
+// コマンドライン引数の解析ロジックが小規模な限り、main.rsに置いても良い。
+// コマンドライン引数の解析ロジックが複雑化の様相を呈し始めたら、main.rsから抽出してlib.rsに移動する。
 fn main() {
     // Rustにおいて、 型を注釈しなければならない頻度は非常に少ないのですが、
     // collectはよく確かに注釈が必要になる一つの関数です。
     // コンパイラには、あなたが欲しているコレクションの種類が推論できないからです。
     let args: Vec<String> = env::args().collect();
 
-    let query = &args[1];
-    let filename = &args[2];
+    // プログラムの設定用変数のパート
+    // unwrap_or_elseは、値がOkならOkの値を返し、
+    // 値がErr値なら、クロージャにErrの値を引数として渡す
+    let config = Config::new(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguments: {}", err);
+        process::exit(1);
+    });
 
-    println!("Searching for {}", query);
-    println!("In file {}", filename);
+    println!("Searching for {}", config.query);
+    println!("In file {}", config.filename);
 
-    let mut f = File::open(filename).expect("file not found");
-
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
-        .expect("something went wrong reading the file");
-
-    println!("With text:\n{}", contents);
+    // run(config)はプログラムのロジックのパート
+    // run(config)はOkの時に値を返さないので、
+    // unwrap_or_elseを使わず、if let式でエラーの処理のみを書く
+    if let Err(e) = minigrep::run(config) {
+        println!("Application error: {}", e);
+        process::exit(1);
+    };
 }
