@@ -18,7 +18,7 @@ fn main() {
     // unwrap_or_elseは、値がOkならOkの値を返し、
     // 値がErr値なら、クロージャにErrの値を引数として渡す
     let config = Config::new(&args).unwrap_or_else(|err| {
-        println!("Problem parsing arguments: {}", err);
+        eprintln!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
 
@@ -26,7 +26,7 @@ fn main() {
     // run(config)はOkの時に値を返さないので、
     // unwrap_or_elseを使わず、if let式でエラーの処理のみを書く
     if let Err(e) = minigrep::run(config) {
-        println!("Application error: {}", e);
+        eprintln!("Application error: {}", e);
         process::exit(1);
     };
 }
