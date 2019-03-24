@@ -22,9 +22,6 @@ fn main() {
         process::exit(1);
     });
 
-    println!("Searching for {}", config.query);
-    println!("In file {}", config.filename);
-
     // run(config)はプログラムのロジックのパート
     // run(config)はOkの時に値を返さないので、
     // unwrap_or_elseを使わず、if let式でエラーの処理のみを書く
