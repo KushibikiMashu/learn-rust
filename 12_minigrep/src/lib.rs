@@ -1,7 +1,9 @@
-use std::fs::File;
-use std::io::prelude::*;
-use std::error::Error;
-use std::env;
+use std::{
+    fs::File,
+    io::prelude::*,
+    error::Error,
+    env,
+};
 
 pub struct Config {
     pub query: String,
